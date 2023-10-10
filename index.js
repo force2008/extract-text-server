@@ -3,7 +3,7 @@ import Router from "koa-router";
 import {koaBody} from "koa-body"
 import { dirname } from "node:path"
 import { fileURLToPath } from "node:url"
-import cors from 'koa-cors';
+import cors from 'koa2-cors';
 import fs from "fs"
 import mime from 'mime-types'
 import pdf from 'pdf-parse';
@@ -18,7 +18,19 @@ const router = new Router()
 
 
 // app.use();
-app.use(cors());
+app.use(cors({
+  origin: function(ctx) { //设置允许来自指定域名请求
+      if (ctx.url === '/upload') {
+          return '*'; // 允许来自所有域名请求
+      }
+      return 'http://localhost:8080'; //只允许http://localhost:8080这个域名的请求
+  },
+  maxAge: 5, //指定本次预检请求的有效期，单位为秒。
+  credentials: true, //是否允许发送Cookie
+  allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], //设置所允许的HTTP请求方法
+  allowHeaders: ['Content-Type', 'Authorization', 'Accept'], //设置服务器支持的所有头信息字段
+  exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'] //设置获取其他自定义字段
+}));
 app.use(async (ctx, next)=>{
     ctx.state = {
       userName: 'andy One'
@@ -38,6 +50,20 @@ router.get('/', async (ctx)=>{
     console.log(e)
   }
 });
+
+router.get('/demo', async (ctx)=>{
+  try{
+    let users = await db.collection("user");
+    let user = {};
+    user.name = 'andyOne' + Math.floor(Math.random()*100);
+    user.age = Math.floor(Math.random()*100)
+    let result = await users.insertOne(user);
+    ctx.body="hello demo"
+  }catch(e){
+    console.log(e)
+  }
+});
+
 router.post('/upload',koaBody({
   multipart: true,
   encoding:'gzip',
