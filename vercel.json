@@ -12,6 +12,11 @@
         "src": "/.*",
         "dest": "/index.js",
         "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+      },
+      {
+        "src": "/upload",
+        "dest": "/index.js",
+        "methods": ["POST"]
       }
     ]
     
