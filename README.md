@@ -1,2 +1,2 @@
 # extract-text-server
-a server for get Text content from PDF file which has no access with copy right, but we need to get text and use text to has audio for listening ,then you can use this tool, the tool site is https://extract-text-client.vercel.app/
+a server to get Text content from PDF file which has no access with copy right, but we need to get text and use text to have audio listening ,then you can use this tool to extract text content, the tool site is https://extract-text-client.vercel.app/
