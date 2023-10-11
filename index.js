@@ -68,7 +68,7 @@ router.get('/demo', async (ctx)=>{
 router.post('/upload',koaBody({
   multipart: true,
   encoding:'gzip',
-  formidable:{uploadDir:'../public/files/',keepExtensions: true},
+  formidable:{uploadDir:'/test/data/',keepExtensions: true},
   formidable: {
       maxFileSize: 1000*1024*1024	// 设置上传文件大小最大限制，默认2M
   }
@@ -91,7 +91,7 @@ router.post('/upload',koaBody({
   // 创建文件流
   const reader = fs.createReadStream(file.filepath);
   // 处理文件写入路径
-  const path = __dirname + '/../public/files/'+name 
+  const path = __dirname + '/test/data/'+name 
   // 创建写入流
   const upStream = fs.createWriteStream(path);
   // 数据写入文件
