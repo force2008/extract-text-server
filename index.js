@@ -88,14 +88,14 @@ router.post('/upload',koaBody({
   console.log(`type: ${type}`)
   console.log(`fileExtension: ${fileExtension}`)
 
-  // 创建文件流
-  const reader = fs.createReadStream(file.filepath);
-  // 处理文件写入路径
-  const path = __dirname + '/test/data/'+name 
-  // 创建写入流
-  const upStream = fs.createWriteStream(path);
-  // 数据写入文件
-  reader.pipe(upStream);
+  // // 创建文件流
+  // const reader = fs.createReadStream(file.filepath);
+  // // 处理文件写入路径
+  // const path = __dirname + '/test/data/'+name 
+  // // 创建写入流
+  // const upStream = fs.createWriteStream(path);
+  // // 数据写入文件
+  // reader.pipe(upStream);
   let dataBuffer = fs.readFileSync(file.filepath);
   let data = await pdf(dataBuffer);
   
